@@ -47,5 +47,5 @@ app.get("/", (req, res) => {
     TodoTask.find({}, (err, tasks) => {
     res.render("todo.ejs", { todoTasks: tasks });
     });
- });
+    })
 app.listen(3000, () => console.log("Server Up and running"));
