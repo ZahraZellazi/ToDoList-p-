@@ -13,9 +13,9 @@
 <div class="todo-container">
     <h2>To-Do List</h2>
     <div class="todo">
-        <form id="todo-form" action="/" method="POST" class="todo-header">
-            <input id="todo-input" type="text" name="content" placeholder="Enter task">
-            <input id="todo-datetime" type="datetime-local" name="due-datetime">
+        <form id="todo-form" action="/todotask" method="POST" class="todo-header">
+            <input id="content" type="text" name="content" placeholder="Enter task">
+            <input id="date" type="datetime-local" name="date">
             <button type="submit"><span class="fas fa-plus"></span></button>
         </form>
         <ul id="todo-list" class="todo-list">
@@ -25,12 +25,10 @@
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        loadTodos();
-
         document.getElementById('todo-form').addEventListener('submit', function(event) {
             event.preventDefault();
-            var todoInput = document.getElementById('todo-input');
-            var todoDatetime = document.getElementById('todo-datetime');
+            var todoInput = document.getElementById('content');
+            var todoDatetime = document.getElementById('date');
             var newTodoText = todoInput.value.trim();
             var newTodoDatetime = todoDatetime.value;
 
@@ -40,7 +38,6 @@
                     datetime: newTodoDatetime
                 };
 
-                saveTodoToLocalStorage(newTodoItem);
                 addTodoToDOM(newTodoItem);
                 
                 todoInput.value = '';
@@ -68,17 +65,6 @@
         `;
 
         todoList.appendChild(newTodoItemElement);
-    }
-
-    function saveTodoToLocalStorage(todoItem) {
-        var todos = JSON.parse(localStorage.getItem('todos')) || [];
-        todos.push(todoItem);
-        localStorage.setItem('todos', JSON.stringify(todos));
-    }
-
-    function loadTodos() {
-        var todos = JSON.parse(localStorage.getItem('todos')) || [];
-        todos.forEach(addTodoToDOM);
     }
 </script>
 </body>
